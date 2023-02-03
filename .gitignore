@@ -1,0 +1,8 @@
+.cache
+.config
+.docker
+.ipython
+.jupyter
+.local
+test_images/**
+train_images/**
