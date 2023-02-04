@@ -343,7 +343,7 @@ def process_chunk(args):
     return image_serialized, target, patient_id, image_id
 
 def to_tf_records(chunks):
-    for chunk_idx, chunk in enumerate(tqdm(chunks)):
+    for chunk_idx, chunk in enumerate(chunks):
         print(f'===== GENERATING TFRECORDS {chunk_idx} =====')
         tfrecord_name = f'batch_{chunk_idx}.tfrecords'
         
@@ -351,12 +351,12 @@ def to_tf_records(chunks):
         options = tf.io.TFRecordOptions(compression_type='GZIP', compression_level=9)
         with tf.io.TFRecordWriter(tfrecord_name, options=options) as file_writer:
             # Process Samples in Chunk in Parallell
-            jobs = [joblib.delayed(process_chunk)(args) for args in chunk]
+            jobs = [process_chunk(args) for args in chunk]
             chunk_processed = joblib.Parallel(
-                n_jobs=cpu_count(),
+                n_jobs=4,
                 verbose=0,
                 backend='multiprocessing',
-                prefer='threads',
+                # prefer='threads',
             )(jobs)
             
             # Add Processed Samples to TFRecord
