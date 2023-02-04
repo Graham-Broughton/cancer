@@ -7,3 +7,5 @@
 test_images/**
 train_images/**
 *.zip
+*.tfrecords
+*.dcm
