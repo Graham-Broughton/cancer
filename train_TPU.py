@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import tensorflow_addons as tfa
-import tensorflow_gcs_config
+# import tensorflow_gcs_config
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from multiprocessing import cpu_count
 from sklearn.model_selection import train_test_split
 from keras_cv_attention_models import convnext
