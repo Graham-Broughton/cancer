@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import tensorflow_addons as tfa
-# import tensorflow_gcs_config
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -33,21 +32,12 @@ print(f'Python Version: {sys.version}')
 now = datetime.now().strftime("%d-%b-%Y %H-%M-%S")
 np.save(now, np.array([now]))
 
-try:
-    TPU = tf.distribute.cluster_resolver.TPUClusterResolver()  # TPU detection. No parameters necessary if TPU_NAME environment variable is set. On Kaggle this is always the case.
-    print('Running on TPU ', TPU.master())
-except ValueError:
-    print('Running on GPU')
-    TPU = None
+TPU = tf.distribute.cluster_resolver.TPUClusterResolver(tpu='local')  # TPU detection. No parameters necessary if TPU_NAME environment variable is set. On Kaggle this is always the case.
+print('Running on TPU ', TPU.master())
 
-if TPU:
-    IS_TPU = True
-    tf.config.experimental_connect_to_cluster(TPU)
-    tf.tpu.experimental.initialize_tpu_system(TPU)
-    STRATEGY = tf.distribute.experimental.TPUStrategy(TPU)
-else:
-    IS_TPU = False
-    STRATEGY = tf.distribute.get_strategy() # default distribution strategy in Tensorflow. Works on CPU and single GPU.
+IS_TPU = True
+tf.tpu.experimental.initialize_tpu_system(TPU)
+STRATEGY = tf.distribute.TPUStrategy(TPU)# default distribution strategy in Tensorflow. Works on CPU and single GPU.
 
 N_REPLICAS = STRATEGY.num_replicas_in_sync
 print(f'N_REPLICAS: {N_REPLICAS}, IS_TPU: {IS_TPU}')
