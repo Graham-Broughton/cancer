@@ -13,5 +13,5 @@ class CFG:
     WD_RATIO: float = 0.01
     WARMUP_EPOCHS: int = 0
     EPOCHS: int = 10
-    BATCH_SIZE: int = 8
+    BATCH_SIZE: int = 16
     
