@@ -9,3 +9,4 @@ train_images/**
 *.zip
 *.tfrecords
 *.dcm
+*.h5
