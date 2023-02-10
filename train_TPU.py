@@ -92,6 +92,7 @@ def tf_rand_int(minval, maxval, dtype=tf.int64):
 # chance of 1 in k
 def one_in(k):
     return 0 == tf_rand_int(0, k)
+
 # Function to benchmark the dataset
 def benchmark_dataset(dataset, num_epochs=3, n_steps_per_epoch=10, bs=BATCH_SIZE):
     start_time = time.perf_counter()
